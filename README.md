@@ -3,6 +3,7 @@ Example of data set of chromosome 1 (subsample of 1000G : position on chromosome
   * Todo for V2: 
       * 1 chromosome doesn't work for bolt 
       * problem of I/D in fastlmm
+      * check keep allele order for plink
   * V1 : 
     * `simul.config`  : config file to simulate phenotype
     * `extract_1000GAndPosChr1.bash`  : bash script to generate data and simulate phenotype
