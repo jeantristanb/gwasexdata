@@ -1,7 +1,7 @@
 # Build Gwas Data Set
 Objectif : using 1000 genomes and simulation process as [phenosim](append link), build gwas data set for qc, imputation, gwas and post analysis for [h3africa](append link) pipeline and script related for testing 
-## Data set generation 
-### General approach 
+# Data set generation 
+## General approach 
   * prepare data for simulation of phenotype and qc : 
     * Download file from 1000 Genomes project (release:20130502), transform data in plink format, change sex of participant in fam
   * Simulate phenotype using [h3agwas/assoc/simul-assoc.nf](append link) with [phenosim](), [plink]() ...
@@ -10,20 +10,27 @@ Objectif : using 1000 genomes and simulation process as [phenosim](append link),
   * gwas script for gwas  [h3agwas/assoc/main.nf](append link)
   * post gwas analysis [h3agwas/assoc/](append link)
 
-### Version 2 
+## Version 2 
+  * exemple of data set of chromosome 5, 10, 19 to do GWAS
   * version 2 is in directory [V2](Append link) 
+  * in devlopment 
   * Improvment, fixed  :
       * V1, 1 chromosome have been generate,  doesn't work for bolt 
       * Look like roblem of I/D in fastlmm
       * check keep allele order for plink
       * append  : qc script, imputation script
-### Version 1 
+      * do different data set for different population Gwas subsample ?
+### how to use
+TODO
+## Version 1 
 * Example of data set of chromosome 1 (subsample of 1000G : position on chromosome 1 for dna cheap h3africa 
 * version 1 is in directory [V1](Append link) 
 * folder description 
  * `extract_1000GAndPosChr1.bash`  : bash script to generate data and simulate phenotype, output :
-  * simul.config : config file of h3agwas pipeline 
+  * simul.config : config file of h3agwas pipeline for simulation :
+   * simulate 3 data set, of 5 locus each with qtl strenght "0.1,0.3,0.1,0.2,0.2" and maf ? "0.05,0.000001,0.00000137,0.05,0.02"
   * `plkfile` folder : contains for chromosome 1 plink file of 1000 genomes and position of h3africa array 
+    * `1000G.h3aPos.1.vcf.[bed/bim/fam]`: 2504 individuals with 163 842 positions of chromosomes 1
   * `Chr1Test/simul/` :
     * ̀ 1000G.h3aPos.1.vcf.ms.\_NumSimulation\_.pheno.pheno` : phenotype simulated for each individuals
     * `1000G.h3aPos.1.vcf.ms.\_NumSimulation\_.pheno.causal` : positions used to simulated phenotype with phenosim : 1000G.h3aPos.1.vcf.ms.\_NumSimulation\_.pheno.causal
@@ -31,8 +38,14 @@ Objectif : using 1000 genomes and simulation process as [phenosim](append link),
  * `gwas.config` : gwas config file for ha3gwas pipeline 
  * `gwas.bash` : bash to launch gwas config with slurm singularity
 
+* limits :
+  * doesn't work for boltlmm and LOCO, due to 1 chromosome
+  * some issue with fastlmm and Insertion /Deletion 
+  * QC pipeline have be not apply
+  * Imputation pipeline have been not tested on data
+
 ### how to use 
-clone branch => todo 
+clone branch
 """
 git clone jeantristanb/
 """
@@ -53,11 +66,12 @@ nextflow -c launchgwas.config run h3abionet/h3agwas/assoc/main.nf -resume  -prof
 '''
 
 
-## Data
+# Data
 * folder `data`
 * ̀ integrated\_call\_samples_v2.20130502.ALL.ped` : information for 1000 genomes sample
 * ̀ bim file for h3africa array`: to do
-## Bin : 
+
+# Bin : 
 * folder `bin`
 * changesex.r : Rscript to change fam file and append sex
  
@@ -65,8 +79,10 @@ nextflow -c launchgwas.config run h3abionet/h3agwas/assoc/main.nf -resume  -prof
 ## General script 
 
 ## Requirements 
-* shell/ bash
-* [nextflow](Append Link) - launch  
+* shell/ bash /wget 
+* [nextflow](Append Link) and pipeline :
+  * [h3abionet/h3agwas]() branch hackathon at 9/08/19
+  * [h3abionet/imputation]()
 * [plink](plink)
 * [R]() R-project
 * [singularity](Append Link) or install software dependency of pipeline :
