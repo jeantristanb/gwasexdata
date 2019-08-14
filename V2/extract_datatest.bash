@@ -68,19 +68,18 @@ plink --bfile $FirstFile  --keep-allele-order --threads $NbThread --merge-list a
 fi
 ### cleaning
 #../../h3agwas/assoc/simul-assoc.nf
-EntFinal=$DirData/1000G.h3aPos"_0.1_0.05"
+EntFinalSub=$DirData/1000G.h3aPos"_0.1_0.05"
 if [ ! -f $EntFinalSub".bed" ]
 then
 plink --thin 0.1 --bfile $EntFinal --keep-allele-order --threads $NbThread --make-bed --out $EntFinalSub --maf 0.05
 fi
-nextflow -c simul.config run /home/jeantristan/Travail/git/h3agwas/assoc/simul-assoc.nf  --input_dir $DirDataTmp --input_pat `basename $EntFinalSub`  --output_dir phenotype/  --out "pheno." -profile slurm -resume
-#rm -rf $DirDataTmp *.vcf.gz
+#nextflow -c simul.config run /home/jeantristan/Travail/git/h3agwas/assoc/simul-assoc.nf  --input_dir $DirDataTmp --input_pat `basename $EntFinalSub`  --output_dir phenotype/  --out "pheno." -profile slurm -resume
+#rm -rf $DirDataTmp *.vcf.gz 
 
 
 
 
 ###clean data 
-
 ## simulate phenotype with h3agwas pipleine
 # delete  1000G file
 #rm -r "ALL.chr"$Chro".phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz"
